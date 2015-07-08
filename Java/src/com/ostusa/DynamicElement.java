@@ -11,6 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.net.LinuxEphemeralPortRangeDetector;
 
 public class DynamicElement implements WebElement
 {
@@ -19,6 +20,7 @@ public class DynamicElement implements WebElement
 	private String Name;
 	private String Regex;
 	private String XPath;
+	private String LinkText;
 	
 	private WebDriver Driver;
 	private WebElement rootElement;
@@ -59,6 +61,12 @@ public class DynamicElement implements WebElement
 		this.Driver = driver;
 		return this;
 	}
+	
+	public DynamicElement SetLinkText(String text)
+	{
+		this.LinkText = text;
+		return this;
+	}
 
 	private DynamicElement Find()
 	{
@@ -84,10 +92,16 @@ public class DynamicElement implements WebElement
 			rootElement = Driver.findElement(By.xpath(XPath));
 		}
 		
+		if(LinkText != null)
+		{
+			rootElement = Driver.findElement(By.linkText(LinkText));
+		}
+		
 		if(rootElement != null)
 		{
 			return this;
 		}
+		
 		
 		return null;
 	}
