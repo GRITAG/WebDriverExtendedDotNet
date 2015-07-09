@@ -1,7 +1,7 @@
 # WebDriverExtended
 Extensions to Selenium / Webdriver
 
-Java Depedices :
+## Java Depedices
 
 [Selenium / WebDriver](https://github.com/SeleniumHQ/selenium)
 
