@@ -6,3 +6,5 @@ Extensions to Selenium / Webdriver
 [Selenium / WebDriver](https://github.com/SeleniumHQ/selenium)
 
 [Protractor-JVM](https://github.com/F1tZ81/Protractor-jvm)
+
+[Selendroid](https://github.com/selendroid/selendroid)
