@@ -1,7 +1,7 @@
 # WebDriverExtended
 Extensions to Selenium / Webdriver
 
-Dependent on:
+Java Depedices :
 
 [Selenium / WebDriver](https://github.com/SeleniumHQ/selenium)
 
