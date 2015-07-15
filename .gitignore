@@ -1,3 +1,8 @@
 /Java/bin
 /Java/.idea
 /Java/.settings
+/Java/build
+/Java/.gradle
+/Java/classes
+/Java/.project
+/Java/.classpath

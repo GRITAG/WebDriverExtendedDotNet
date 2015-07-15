@@ -394,14 +394,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
-      <library name="Protractor-jvm.jar">
-        <CLASSES>
-          <root url="jar://C:/LibJava/Protractor-jvm.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
+    <orderEntry type="library" name="selendroid-standalone-0.15.0-with-dependencies" level="project" />
+    <orderEntry type="library" name="selendroid-client-0.15.0" level="project" />
   </component>
 </module>
