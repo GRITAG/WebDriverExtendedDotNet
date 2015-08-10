@@ -35,7 +35,7 @@ public class DynamicElement implements WebElement
 	public DynamicElement SetName(String name)
 	{
 		this.Name = name;
-		return this;
+		return this;//http://marketplace.eclipse.org/marketplace-client-intro?mpc_install=1799756
 	}
 	
 	public DynamicElement SetRegex(String regex)
