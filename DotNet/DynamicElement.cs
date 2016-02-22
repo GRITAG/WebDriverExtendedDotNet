@@ -12,9 +12,9 @@ namespace WebDriverExtended
     public class DynamicElement : IWebElement
     {
         private IWebDriver Driver;
-	    private IWebElement rootElement;
+	    private IWebElement RootElement;
         private List<By> SearchOptions = new List<By>();
-        private string DisplayName = string.Empty; 
+        public string DisplayName { get; set; }
 
         IReport Reporting;
 
@@ -23,7 +23,7 @@ namespace WebDriverExtended
             get
             {
                 Find();
-                return rootElement.Displayed;
+                return RootElement.Displayed;
             }
         }
 
@@ -32,7 +32,7 @@ namespace WebDriverExtended
             get
             {
                 Find();
-                return rootElement.Enabled;
+                return RootElement.Enabled;
             }
         }
 
@@ -41,7 +41,7 @@ namespace WebDriverExtended
             get
             {
                 Find();
-                return rootElement.Location;
+                return RootElement.Location;
             }
         }
 
@@ -50,7 +50,7 @@ namespace WebDriverExtended
             get
             {
                 Find();
-                return rootElement.Selected;
+                return RootElement.Selected;
             }
         }
 
@@ -59,7 +59,7 @@ namespace WebDriverExtended
             get
             {
                 Find();
-                return rootElement.Size;
+                return RootElement.Size;
             }
         }
 
@@ -68,7 +68,7 @@ namespace WebDriverExtended
             get
             {
                 Find();
-                return rootElement.TagName;
+                return RootElement.TagName;
             }
         }
 
@@ -77,30 +77,37 @@ namespace WebDriverExtended
             get
             {
                 Find();
-                return rootElement.Text;
+                return RootElement.Text;
             }
         }
 
-        public DynamicElement(IWebDriver driver)
+        public DynamicElement(IWebDriver driver, string displayName = "Unknown")
         {
             this.Driver = driver;
         }
 
-        public DynamicElement(IWebDriver driver, IReport reporting) : this(driver)
+        public DynamicElement(IWebDriver driver, IReport reporting, string displayName = "Unknown") : this(driver, displayName)
         {
             Reporting = reporting;
         }
 
+        private DynamicElement(IWebDriver driver, IWebElement rootElement)
+        {
+            RootElement = rootElement;
+            Driver = driver;
+            DisplayName = "Unknown";
+        }
+
         private DynamicElement Find()
         {
-            if (rootElement == null || ElementStale() == true)
+            if (RootElement == null || ElementStale() == true)
             {
 
                 foreach (By currentBy in SearchOptions)
                 {
                     try
                     {
-                        rootElement = Driver.FindElement(currentBy);
+                        RootElement = Driver.FindElement(currentBy);
                         return this;
                     }
                     catch (Exception e)
@@ -120,7 +127,7 @@ namespace WebDriverExtended
         {
             try
             {
-                bool staleCheck = rootElement.Enabled;
+                bool staleCheck = RootElement.Enabled;
                 return false;
 
             }
@@ -134,20 +141,25 @@ namespace WebDriverExtended
         public void Clear()
         {
             this.Find();
-            this.rootElement.Clear();
+            this.RootElement.Clear();
         }
 
         public void Click()
         {
             this.Find();
-            this.rootElement.Click();
+            this.RootElement.Click();
         }
 
         public IWebElement FindElement(By by)
         {
 
-            rootElement = rootElement.FindElement(by);
-            return rootElement;
+            RootElement = RootElement.FindElement(by);
+            return RootElement;
+        }
+
+        public DynamicElement FindDynamicElement(By by)
+        {
+            return new DynamicElement(Driver, RootElement.FindElement(by));
         }
 
         public ReadOnlyCollection<IWebElement> FindElements(By by)
@@ -159,30 +171,36 @@ namespace WebDriverExtended
         public string GetAttribute(string attributeName)
         {
             this.Find();
-            return rootElement.GetAttribute(attributeName);
+            return RootElement.GetAttribute(attributeName);
         }
 
         public string GetCssValue(string propertyName)
         {
             Find();
-            return rootElement.GetCssValue(propertyName);
+            return RootElement.GetCssValue(propertyName);
         }
 
         public void SendKeys(string text)
         {
             Find();
-            rootElement.SendKeys(text);
+            RootElement.SendKeys(text);
         }
 
         public void Submit()
         {
             Find();
-            rootElement.Submit();
+            RootElement.Submit();
         }
 
         public DynamicElement AddSearch(By byToAdd)
         {
             SearchOptions.Add(byToAdd);
+            return this;
+        }
+
+        public DynamicElement SetDisplayName(string name)
+        {
+            DisplayName = name;
             return this;
         }
     }
