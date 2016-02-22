@@ -14,6 +14,9 @@ namespace WebDriverExtended
         private IWebDriver Driver;
 	    private IWebElement rootElement;
         private List<By> SearchOptions = new List<By>();
+        private string DisplayName = string.Empty; 
+
+        IReport Reporting;
 
         public bool Displayed
         {
@@ -83,25 +86,49 @@ namespace WebDriverExtended
             this.Driver = driver;
         }
 
+        public DynamicElement(IWebDriver driver, IReport reporting) : this(driver)
+        {
+            Reporting = reporting;
+        }
+
         private DynamicElement Find()
         {
-            rootElement = null;
-
-            foreach(By currentBy in SearchOptions)
+            if (rootElement == null || ElementStale() == true)
             {
-                try
+
+                foreach (By currentBy in SearchOptions)
                 {
-                    rootElement = Driver.FindElement(currentBy);
-                    return this;
+                    try
+                    {
+                        rootElement = Driver.FindElement(currentBy);
+                        return this;
+                    }
+                    catch (Exception e)
+                    {
+                        // contiune on
+                    }
                 }
-                catch(Exception e)
-                {
-                    // contiune on
-                }
+
+                if (Reporting != null) Reporting.Validate("Could not find the element " + DisplayName, false);
+                return this;
             }
 
+            return this;
+        }
 
-            return null;
+        private bool ElementStale()
+        {
+            try
+            {
+                bool staleCheck = rootElement.Enabled;
+                return false;
+
+            }
+            catch (StaleElementReferenceException)
+            {
+
+                return true;
+            }
         }
 
         public void Clear()
