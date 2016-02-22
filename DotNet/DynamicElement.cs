@@ -141,13 +141,16 @@ namespace WebDriverExtended
         public void Clear()
         {
             this.Find();
+            if (Reporting != null) Reporting.WriteStep("Clearing the element " + DisplayName);
             this.RootElement.Clear();
         }
 
         public void Click()
         {
             this.Find();
+            if (Reporting != null) Reporting.WriteStep("Clicking the element " + DisplayName);
             this.RootElement.Click();
+            
         }
 
         public IWebElement FindElement(By by)
@@ -171,24 +174,28 @@ namespace WebDriverExtended
         public string GetAttribute(string attributeName)
         {
             this.Find();
+            if (Reporting != null) Reporting.WriteStep("Retiving the attribute " + attributeName + " for the element " + DisplayName);
             return RootElement.GetAttribute(attributeName);
         }
 
         public string GetCssValue(string propertyName)
         {
             Find();
+            if (Reporting != null) Reporting.WriteStep("Retiving the css value " + propertyName + " for the element " + DisplayName);
             return RootElement.GetCssValue(propertyName);
         }
 
         public void SendKeys(string text)
         {
             Find();
+            if (Reporting != null) Reporting.WriteStep("Sending keys " + text + " to the element " + DisplayName);
             RootElement.SendKeys(text);
         }
 
         public void Submit()
         {
             Find();
+            if (Reporting != null) Reporting.WriteStep("Submitting for the element " + DisplayName);
             RootElement.Submit();
         }
 
