@@ -7,3 +7,8 @@
 /Java/.project
 /Java/.classpath
 .idea/workspace.xml
+DotNet/WebDriverExtended/bin/Debug/
+DotNet/WebDriverExtended/packages/Selenium.Support.2.52.0/Selenium.Support.2.52.0.nupkg
+DotNet/WebDriverExtended/packages/Selenium.Support.2.52.0/
+DotNet/WebDriverExtended/packages/Selenium.WebDriver.2.52.0/
+DotNet/WebDriverExtended/obj/Debug/
