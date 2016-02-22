@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace WebDriverExtended
 {
+    /// <summary>
+    /// Static set of strings used to ease loclization
+    /// </summary>
     public class StringLocalization
     {
         public static string ClearReportText = "Clearing the element {0}";
