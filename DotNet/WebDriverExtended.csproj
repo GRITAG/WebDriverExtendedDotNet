@@ -50,8 +50,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DynamicElement.cs" />
+    <Compile Include="IAdvancePageObject.cs" />
+    <Compile Include="IPageObject.cs" />
     <Compile Include="IReport.cs" />
+    <Compile Include="IStatefulPageObject.cs" />
+    <Compile Include="PageState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StringLocalization.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -141,14 +141,14 @@ namespace WebDriverExtended
         public void Clear()
         {
             this.Find();
-            if (Reporting != null) Reporting.WriteStep("Clearing the element " + DisplayName);
+            if (Reporting != null) Reporting.WriteStep(String.Format(StringLocalization.ClearReportText, DisplayName));
             this.RootElement.Clear();
         }
 
         public void Click()
         {
             this.Find();
-            if (Reporting != null) Reporting.WriteStep("Clicking the element " + DisplayName);
+            if (Reporting != null) Reporting.WriteStep(string.Format(StringLocalization.ClickReportText, DisplayName));
             this.RootElement.Click();
             
         }
@@ -174,28 +174,28 @@ namespace WebDriverExtended
         public string GetAttribute(string attributeName)
         {
             this.Find();
-            if (Reporting != null) Reporting.WriteStep("Retiving the attribute " + attributeName + " for the element " + DisplayName);
+            if (Reporting != null) Reporting.WriteStep(string.Format(StringLocalization.GetAttReportText, attributeName, DisplayName));
             return RootElement.GetAttribute(attributeName);
         }
 
         public string GetCssValue(string propertyName)
         {
             Find();
-            if (Reporting != null) Reporting.WriteStep("Retiving the css value " + propertyName + " for the element " + DisplayName);
+            if (Reporting != null) Reporting.WriteStep(string.Format(StringLocalization.GetCSSReportText, propertyName, DisplayName));
             return RootElement.GetCssValue(propertyName);
         }
 
         public void SendKeys(string text)
         {
             Find();
-            if (Reporting != null) Reporting.WriteStep("Sending keys " + text + " to the element " + DisplayName);
+            if (Reporting != null) Reporting.WriteStep(string.Format(StringLocalization.SendKeyReportText, text, DisplayName));
             RootElement.SendKeys(text);
         }
 
         public void Submit()
         {
             Find();
-            if (Reporting != null) Reporting.WriteStep("Submitting for the element " + DisplayName);
+            if (Reporting != null) Reporting.WriteStep(string.Format(StringLocalization.SubmitReportText, DisplayName));
             RootElement.Submit();
         }
 
