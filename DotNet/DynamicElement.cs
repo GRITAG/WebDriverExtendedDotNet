@@ -12,7 +12,7 @@ namespace WebDriverExtended
     public class DynamicElement : IWebElement
     {
         private IWebDriver Driver;
-	    private IWebElement RootElement;
+	    protected IWebElement RootElement;
         private List<By> SearchOptions = new List<By>();
         public string DisplayName { get; set; }
 
@@ -165,10 +165,53 @@ namespace WebDriverExtended
             return new DynamicElement(Driver, RootElement.FindElement(by));
         }
 
+        public List<DynamicElement> FindDynamicElements(By by)
+        {
+            ReadOnlyCollection<IWebElement> baseElements = RootElement.FindElements(by);
+
+            List<DynamicElement> elementsToReturn = new List<DynamicElement>();
+
+            foreach(IWebElement currentElement in baseElements)
+            {
+                elementsToReturn.Add(new DynamicElement(Driver, currentElement));
+            }
+
+            return elementsToReturn;
+        }
+
+        public List<DynamicElement> FindDynamicElements()
+        {
+            bool foundElements = false;
+            ReadOnlyCollection<IWebElement> elements  = null;
+            List<DynamicElement> elementsToReturn = new List<DynamicElement>();
+
+            foreach (By currentSearch in SearchOptions)
+            {
+                if (!foundElements)
+                {
+                    elements = Driver.FindElements(currentSearch);
+                    if (elements.Count > 0) foundElements = true;
+                }
+            }
+
+            if(foundElements)
+            {
+                foreach (IWebElement currentElement in elements)
+                {
+                    elementsToReturn.Add(new DynamicElement(Driver, currentElement));
+                }
+
+                elementsToReturn.Reverse();
+
+                return elementsToReturn;
+            }
+
+            return null;
+        }
+
         public ReadOnlyCollection<IWebElement> FindElements(By by)
         {
-            //return rootElement.FindElements(by);
-            throw new Exception("Improrper use of element type");
+            return RootElement.FindElements(by);
         }
 
         public string GetAttribute(string attributeName)
@@ -205,10 +248,20 @@ namespace WebDriverExtended
             return this;
         }
 
+        public void ClearSearches()
+        {
+            SearchOptions.Clear();
+        }
+
         public DynamicElement SetDisplayName(string name)
         {
             DisplayName = name;
             return this;
+        }
+
+        public IWebElement ReturnRoot()
+        {
+            return RootElement;
         }
     }
 }
