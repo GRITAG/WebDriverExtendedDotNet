@@ -7,3 +7,16 @@
 /Java/.project
 /Java/.classpath
 .idea/workspace.xml
+DotNet/WebDriverExtended/bin/Debug/
+DotNet/WebDriverExtended/packages/Selenium.Support.2.52.0/Selenium.Support.2.52.0.nupkg
+DotNet/WebDriverExtended/packages/Selenium.Support.2.52.0/
+DotNet/WebDriverExtended/packages/Selenium.WebDriver.2.52.0/
+DotNet/WebDriverExtended/obj/Debug/
+DotNet/bin/Debug/WebDriver.Support.xml
+DotNet/bin/Debug/WebDriver.xml
+DotNet/obj/Debug/
+DotNet/packages/Selenium.Support.2.52.0/
+DotNet/packages/Selenium.WebDriver.2.52.0/
+DotNet/packages/NUnit.3.0.1/
+WDEExmple/bin/Debug/
+WDEExmple/obj/
