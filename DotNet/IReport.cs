@@ -20,7 +20,7 @@ namespace WebDriverExtended
         /// <param name="passFail"></param>
         /// <param name="pasitiveCheck"></param>
         /// <param name="screenShot"></param>
-        void Validate(string text, bool passFail, bool pasitiveCheck = true, byte[] screenShot = null);
+        void Validate(string text, bool passFail, bool positiveCheck = true, byte[] screenShot = null);
 
         /// <summary>
         /// Write a step to the test
