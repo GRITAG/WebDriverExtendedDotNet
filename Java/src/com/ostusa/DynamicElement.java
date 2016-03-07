@@ -6,9 +6,6 @@ import org.openqa.selenium.*;
 
 public class DynamicElement implements WebElement
 {
-
-
-	
 	private WebDriver Driver;
 	private WebElement rootElement;
 	private ArrayList<By> searchOptions = new ArrayList<By>();
@@ -110,14 +107,14 @@ public class DynamicElement implements WebElement
 	public void clear() {
 		this.Find();
 		this.rootElement.clear();
-		
+		Reporting.WriteStep("Clear element " + DisplayName);
 	}
 
 	@Override
 	public void click() {
 		this.Find();
 		this.rootElement.click();
-		
+		Reporting.WriteStep("Click element " + DisplayName);
 	}
 
 	@Override
@@ -188,14 +185,14 @@ public class DynamicElement implements WebElement
 	public void sendKeys(CharSequence... arg0) {
 		this.Find();
 		this.rootElement.sendKeys(arg0);
-		
+		Reporting.WriteStep("Send Keys (" + arg0 + ") to  element " + DisplayName);
 	}
 
 	@Override
 	public void submit() {
 		this.Find();
 		this.rootElement.submit();
-		
+		Reporting.WriteStep("Submit element " + DisplayName);
 	}
 
 
