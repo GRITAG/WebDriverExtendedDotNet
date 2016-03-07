@@ -102,7 +102,7 @@ public class DynamicElement implements WebElement
 			if(Reporting != null) Reporting.Validate("Could not find the element " + DisplayName, false);
 			return this;
 		}
-		
+
 		return this;
 	}
 	
