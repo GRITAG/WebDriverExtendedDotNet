@@ -5,8 +5,8 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("WebDriverExtended")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Webdriver Extended")]
+[assembly: AssemblyDescription("A set of addtions to extend Webdriver")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Aaron F1tZy Van Prooyen")]
 [assembly: AssemblyProduct("Webdriver Extended")]
