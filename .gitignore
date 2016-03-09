@@ -21,3 +21,7 @@ DotNet/packages/NUnit.3.0.1/
 WDEExmple/bin/Debug/
 WDEExmple/obj/
 *.nupkg
+DotNet/bin/Release/
+DotNet/obj/Release/TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs
+DotNet/obj/Release/
+WDEExmple/bin/Release/
