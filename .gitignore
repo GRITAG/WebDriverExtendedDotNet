@@ -20,3 +20,4 @@ DotNet/packages/Selenium.WebDriver.2.52.0/
 DotNet/packages/NUnit.3.0.1/
 WDEExmple/bin/Debug/
 WDEExmple/obj/
+*.nupkg

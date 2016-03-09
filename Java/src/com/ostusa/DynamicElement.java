@@ -1,117 +1,120 @@
 package com.ostusa;
+import java.util.ArrayList;
 import java.util.List;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.Point;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebDriverException;
-import org.openqa.selenium.WebElement;
+
+import org.openqa.selenium.*;
 
 public class DynamicElement implements WebElement
 {
-
-	private String ID;
-	private String Name;
-	private String Regex;
-	private String XPath;
-	private String LinkText;
-	
 	private WebDriver Driver;
 	private WebElement rootElement;
-	
+	private ArrayList<By> searchOptions = new ArrayList<By>();
+	public String DisplayName = null;
+
+	Report Reporting;
+
     public DynamicElement() { }
     
     public DynamicElement(WebDriver driver)
     {
-    	this.Driver = driver;
+		this(driver, null, "Unknown");
     }
-    
-	public DynamicElement SetID(String id)
+
+	public DynamicElement(WebDriver driver, String DisplayName)
 	{
-		this.ID = id;
-		return this;
+		this(driver, null, DisplayName);
 	}
-	
-	public DynamicElement SetName(String name)
+
+	public DynamicElement(WebDriver driver, Report reporting)
 	{
-		this.Name = name;
-		return this;//http://marketplace.eclipse.org/marketplace-client-intro?mpc_install=1799756
+		this(driver, reporting, "Unknown");
 	}
-	
-	public DynamicElement SetRegex(String regex)
+
+	public DynamicElement(WebDriver driver, Report reporting, String displayName)
 	{
-		this.Regex = regex;
-		return this;
+		Driver = driver;
+		Reporting = reporting;
+		DisplayName = displayName;
 	}
-	
-	public DynamicElement SetXpath(String xpath)
+
+	private DynamicElement(WebDriver driver, WebElement rootElement)
 	{
-		this.XPath = xpath;
-		return this;
+		this.rootElement = rootElement;
+		Driver = driver;
+		DisplayName = "Unknown";
 	}
-	
-	public DynamicElement SetDiver(WebDriver driver)
+
+	public boolean GetDisplayed()
 	{
-		this.Driver = driver;
-		return this;
+		return rootElement.isDisplayed();
 	}
-	
-	public DynamicElement SetLinkText(String text)
+
+	public boolean GetEnabled()
 	{
-		this.LinkText = text;
-		return this;
+		return rootElement.isEnabled();
+	}
+
+	public Point GetLocation()
+	{
+		return rootElement.getLocation();
+	}
+
+	public boolean GetSelected()
+	{
+		return rootElement.isSelected();
+	}
+
+	public Dimension GetSize()
+	{
+		return rootElement.getSize();
+	}
+
+	public String GetTagName()
+	{
+		return rootElement.getTagName();
+	}
+
+	public String GetText()
+	{
+		return rootElement.getText();
 	}
 
 	private DynamicElement Find()
 	{
-		rootElement = null;
-		
-		if(ID != null)
+		if(rootElement == null || ElementStale())
 		{
-			rootElement = Driver.findElement(By.id(ID));
-		}
-		
-		if(Name != null)
-		{
-			rootElement = Driver.findElement(By.name(Name));
-		}
-		
-		if(Regex != null)
-		{
-			throw new WebDriverException("Regex is not yet implanted");
-		}
-		
-		if(XPath != null)
-		{
-			rootElement = Driver.findElement(By.xpath(XPath));
-		}
-		
-		if(LinkText != null)
-		{
-			rootElement = Driver.findElement(By.linkText(LinkText));
-		}
-		
-		if(rootElement != null)
-		{
+			for (By currentBy: searchOptions)
+			{
+				try
+				{
+					rootElement = Driver.findElement(currentBy);
+					return this;
+				}
+				catch (Exception e)
+				{
+					// contiune on
+				}
+			}
+
+			if(Reporting != null) Reporting.Validate("Could not find the element " + DisplayName, false);
 			return this;
 		}
-		
-		
-		return null;
+
+		return this;
 	}
 	
 	@Override
 	public void clear() {
 		this.Find();
 		this.rootElement.clear();
-		
+		Reporting.WriteStep("Clear element " + DisplayName);
 	}
 
 	@Override
 	public void click() {
 		this.Find();
 		this.rootElement.click();
-		
+		Reporting.WriteStep("Click element " + DisplayName);
 	}
 
 	@Override
@@ -182,18 +185,31 @@ public class DynamicElement implements WebElement
 	public void sendKeys(CharSequence... arg0) {
 		this.Find();
 		this.rootElement.sendKeys(arg0);
-		
+		Reporting.WriteStep("Send Keys (" + arg0 + ") to  element " + DisplayName);
 	}
 
 	@Override
 	public void submit() {
 		this.Find();
 		this.rootElement.submit();
-		
+		Reporting.WriteStep("Submit element " + DisplayName);
 	}
-	
 
-	
+
+	private boolean ElementStale()
+	{
+		try
+		{
+			Point staleCheck = rootElement.getLocation();
+			return false;
+
+		}
+		catch (StaleElementReferenceException e)
+		{
+
+			return true;
+		}
+	}
 	
 
 }
