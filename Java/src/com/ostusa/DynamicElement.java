@@ -102,6 +102,12 @@ public class DynamicElement implements WebElement
 
 		return this;
 	}
+
+	public DynamicElement AddSearch(By byToAdd)
+	{
+		searchOptions.add(byToAdd);
+		return this;
+	}
 	
 	@Override
 	public void clear() {
