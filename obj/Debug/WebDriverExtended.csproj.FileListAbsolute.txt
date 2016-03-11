@@ -1,9 +1,0 @@
-D:\Projects\WebDriverExtended\DotNet\bin\Debug\WebDriverExtended.dll
-D:\Projects\WebDriverExtended\DotNet\bin\Debug\WebDriverExtended.pdb
-D:\Projects\WebDriverExtended\DotNet\bin\Debug\WebDriver.dll
-D:\Projects\WebDriverExtended\DotNet\bin\Debug\WebDriver.Support.dll
-D:\Projects\WebDriverExtended\DotNet\bin\Debug\WebDriver.xml
-D:\Projects\WebDriverExtended\DotNet\bin\Debug\WebDriver.Support.xml
-D:\Projects\WebDriverExtended\DotNet\obj\Debug\WebDriverExtended.csprojResolveAssemblyReference.cache
-D:\Projects\WebDriverExtended\DotNet\obj\Debug\WebDriverExtended.dll
-D:\Projects\WebDriverExtended\DotNet\obj\Debug\WebDriverExtended.pdb
