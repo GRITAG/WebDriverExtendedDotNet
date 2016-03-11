@@ -1,0 +1,9 @@
+D:\Projects\WebDriverExtended\DotNet\bin\Release\WebDriverExtended.dll
+D:\Projects\WebDriverExtended\DotNet\bin\Release\WebDriverExtended.pdb
+D:\Projects\WebDriverExtended\DotNet\bin\Release\WebDriver.dll
+D:\Projects\WebDriverExtended\DotNet\bin\Release\WebDriver.Support.dll
+D:\Projects\WebDriverExtended\DotNet\bin\Release\WebDriver.xml
+D:\Projects\WebDriverExtended\DotNet\bin\Release\WebDriver.Support.xml
+D:\Projects\WebDriverExtended\DotNet\obj\Release\WebDriverExtended.dll
+D:\Projects\WebDriverExtended\DotNet\obj\Release\WebDriverExtended.pdb
+D:\Projects\WebDriverExtended\DotNet\obj\Release\WebDriverExtended.csprojResolveAssemblyReference.cache
