@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebDriverExtended", "WebDriverExtended.csproj", "{CE315792-F9BD-4457-A0AA-CCAB808AB187}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WDEExmple", "..\WDEExmple\WDEExmple.csproj", "{B5680E1B-3190-481E-9B4B-A225D26291B0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WDEExmple", "WDEExmple\WDEExmple.csproj", "{B5680E1B-3190-481E-9B4B-A225D26291B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

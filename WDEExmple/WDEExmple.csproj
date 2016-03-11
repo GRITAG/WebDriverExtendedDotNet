@@ -59,7 +59,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DotNet\WebDriverExtended.csproj">
+    <ProjectReference Include="..\WebDriverExtended.csproj">
       <Project>{ce315792-f9bd-4457-a0aa-ccab808ab187}</Project>
       <Name>WebDriverExtended</Name>
     </ProjectReference>
