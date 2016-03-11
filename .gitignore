@@ -25,3 +25,6 @@ DotNet/bin/Release/
 DotNet/obj/Release/TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs
 DotNet/obj/Release/
 WDEExmple/bin/Release/
+packages/NUnit.3.0.1/
+packages/Selenium.Support.2.52.0
+packages/Selenium.WebDriver.2.52.0
