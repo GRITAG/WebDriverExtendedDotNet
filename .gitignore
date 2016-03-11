@@ -8,3 +8,8 @@ WDEExmple/bin/Release/
 packages/NUnit.3.0.1/
 packages/Selenium.Support.2.52.0
 packages/Selenium.WebDriver.2.52.0
+WDEExmple/bin/Debug/
+WebDriverExtended/obj/Debug/
+WebDriverExtended/bin/Debug/
+WebDriverExtended/packages/
+packages/
