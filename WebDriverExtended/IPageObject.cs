@@ -13,11 +13,6 @@ namespace WebDriverExtended
     public interface IPageObject
     {
         /// <summary>
-        /// Any setup a page object may need
-        /// </summary>
-        void Setup();
-
-        /// <summary>
         /// Navigate to an address
         /// </summary>
         /// <param name="driver"></param>

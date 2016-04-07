@@ -57,6 +57,9 @@
     <Compile Include="IStatefulPageObject.cs" />
     <Compile Include="PageState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reporting\ReportingUnit.cs" />
+    <Compile Include="Reporting\ReportObjects.cs" />
+    <Compile Include="Reporting\ReportWriter.cs" />
     <Compile Include="StringLocalization.cs" />
   </ItemGroup>
   <ItemGroup>
