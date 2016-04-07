@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebDriverExtended
+namespace WebDriverExtended.Page
 {
     /// <summary>
     /// An object used to trake state with in a page object

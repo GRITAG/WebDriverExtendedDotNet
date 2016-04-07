@@ -51,11 +51,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DynamicElement.cs" />
-    <Compile Include="IAdvancePageObject.cs" />
-    <Compile Include="IPageObject.cs" />
-    <Compile Include="IReport.cs" />
-    <Compile Include="IStatefulPageObject.cs" />
-    <Compile Include="PageState.cs" />
+    <Compile Include="Page\IAdvancePageObject.cs" />
+    <Compile Include="Page\IPageObject.cs" />
+    <Compile Include="Reporting\IReport.cs" />
+    <Compile Include="Page\IStatefulPageObject.cs" />
+    <Compile Include="Page\PageState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reporting\ReportingUnit.cs" />
     <Compile Include="Reporting\ReportObjects.cs" />

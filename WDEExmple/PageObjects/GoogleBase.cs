@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
 using WebDriverExtended;
+using WebDriverExtended.Page;
 
 namespace WDEExmple.PageObjects
 {

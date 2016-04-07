@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebDriverExtended
+namespace WebDriverExtended.Page
 {
     /// <summary>
     /// Adds statful functionality to a page object
