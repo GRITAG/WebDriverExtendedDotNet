@@ -5,18 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebDriverExtended
+namespace WebDriverExtended.Page
 {
     /// <summary>
     /// A basic page object interface
     /// </summary>
     public interface IPageObject
     {
-        /// <summary>
-        /// Any setup a page object may need
-        /// </summary>
-        void Setup();
-
         /// <summary>
         /// Navigate to an address
         /// </summary>

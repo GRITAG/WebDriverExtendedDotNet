@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebDriverExtended
+namespace WebDriverExtended.Page
 {
     /// <summary>
     /// This advnace fourm of the page object interface 
