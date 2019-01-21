@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenQA.Selenium.Support.UI;
 
 namespace WebDriverExtended.Page
 {
@@ -26,14 +27,16 @@ namespace WebDriverExtended.Page
         void Navigate(string url);
 
         /// <summary>
-        /// Navigate to an address
+        /// Get the the Display name used in reporting
         /// </summary>
-        /// <param name="driver"></param>
-        void Navigate(IWebDriver driver);
+        /// <returns>Displyname of an object as a string</returns>
+        string GetDisplayName();
 
         /// <summary>
-        /// Do any clenup the page object needs
+        /// Gets the driver
         /// </summary>
-        void TearDown();
+        /// <returns>Driver</returns>
+        IWebDriver getDriver();
+
     }
 }
