@@ -15,6 +15,22 @@ namespace WDEExmple.PageObjects
         private List<PageState> states = new List<PageState>();
         public string Url = string.Empty;
 
+        IWebDriver IPageObject.Driver
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public string DisplayName
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public GoogleBase(IWebDriver browser)
         {
             Driver = browser;
@@ -76,14 +92,5 @@ namespace WDEExmple.PageObjects
             }
         }
 
-        public string GetDisplayName()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IWebDriver getDriver()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

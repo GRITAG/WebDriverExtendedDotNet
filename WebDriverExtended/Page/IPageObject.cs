@@ -13,6 +13,9 @@ namespace WebDriverExtended.Page
     /// </summary>
     public interface IPageObject
     {
+        IWebDriver Driver { get; }
+        string DisplayName { get; }
+
         /// <summary>
         /// Navigate to an address
         /// </summary>
@@ -25,18 +28,7 @@ namespace WebDriverExtended.Page
         /// </summary>
         /// <param name="url"></param>
         void Navigate(string url);
-
-        /// <summary>
-        /// Get the the Display name used in reporting
-        /// </summary>
-        /// <returns>Displyname of an object as a string</returns>
-        string GetDisplayName();
-
-        /// <summary>
-        /// Gets the driver
-        /// </summary>
-        /// <returns>Driver</returns>
-        IWebDriver getDriver();
+        
 
     }
 }

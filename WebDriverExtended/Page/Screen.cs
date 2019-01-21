@@ -11,8 +11,9 @@ namespace WebDriverExtended.Page
     class Screen : IPageObject
     {
 
-        protected IWebDriver Driver;
-        protected string DisplayName;
+        public IWebDriver Driver { get; protected set; }
+        public string DisplayName { get; protected set; }
+
         private WebDriverWait PageWait;
 
         public Screen(IWebDriver driver, string displayName)
@@ -32,15 +33,7 @@ namespace WebDriverExtended.Page
             Driver.Navigate().GoToUrl(url);
         }
 
-        public string GetDisplayName()
-        {
-            return DisplayName;
-        }
 
-        public IWebDriver getDriver()
-        {
-            return Driver;
-        }
     }
 
 }

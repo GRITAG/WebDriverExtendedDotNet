@@ -10,13 +10,18 @@ namespace WebDriverExtended.Page
 {
     class Page : IPageObject
     {
-        protected IWebDriver Driver;
-        protected string DisplayName;
+        public IWebDriver Driver { get; protected set; }
+        public string DisplayName { get; protected set; }
         public string BaseUrl { get; set; }
         public string Path { get; set; }
         private WebDriverWait PageWait;
         public Boolean Mobile { get; protected set; }
 
+        /// <summary>
+        /// Creates a pageobject
+        /// </summary>
+        /// <param name="driver">the webdriver instance to attach to this page</param>
+        /// <param name="displayName">The human readable name to display for reporting</param>
         public Page(IWebDriver driver, string displayName)
         {
             Driver = driver;
@@ -34,6 +39,10 @@ namespace WebDriverExtended.Page
             return BaseUrl;
         }
 
+        /// <summary>
+        /// Navigate to the the pages absolute url. Both the base URL and the relative url must be stored within the page object
+        /// </summary>
+        /// <param name="url"></param>
         public void Navigate(string url)
         {
             Driver.Navigate().GoToUrl(url);
@@ -44,14 +53,5 @@ namespace WebDriverExtended.Page
             driver.Navigate().GoToUrl(url);
         }
 
-        public string GetDisplayName()
-        {
-            return DisplayName;
-        }
-
-        public IWebDriver getDriver()
-        {
-            return Driver;
-        }
     }
 }

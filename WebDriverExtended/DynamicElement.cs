@@ -24,6 +24,9 @@ namespace WebDriverExtended
 
         IReport Reporting;
 
+        /// <summary>
+        /// Is the current element displayed on the screen
+        /// </summary>
         public bool Displayed
         {
             get
@@ -33,6 +36,9 @@ namespace WebDriverExtended
             }
         }
 
+        /// <summary>
+        /// Is the current element enabled
+        /// </summary>
         public bool Enabled
         {
             get
@@ -42,6 +48,9 @@ namespace WebDriverExtended
             }
         }
 
+        /// <summary>
+        /// location of the element
+        /// </summary>
         public Point Location
         {
             get
@@ -51,6 +60,9 @@ namespace WebDriverExtended
             }
         }
 
+        /// <summary>
+        /// Is the current element selected
+        /// </summary>
         public bool Selected
         {
             get
@@ -60,6 +72,9 @@ namespace WebDriverExtended
             }
         }
 
+        /// <summary>
+        /// element dimensions on the screen
+        /// </summary>
         public Size Size
         {
             get
@@ -69,6 +84,9 @@ namespace WebDriverExtended
             }
         }
 
+        /// <summary>
+        /// html tag of the element
+        /// </summary>
         public string TagName
         {
             get
@@ -78,6 +96,9 @@ namespace WebDriverExtended
             }
         }
 
+        /// <summary>
+        /// Inner text of the current element instance
+        /// </summary>
         public string Text
         {
             get
@@ -91,14 +112,26 @@ namespace WebDriverExtended
 
         }
 
+        /// <summary>
+        /// Creates a dynamic element that uses the parent element as the base of the search
+        /// </summary>
+        /// <param name="page"></param>
+        /// <param name="displayName"></param>
+        /// <param name="parentElement"></param>
         private DynamicElement(IPageObject page, string displayName, DynamicElement parentElement)
         {
             ParentElement = parentElement;
-            this.Driver = page.getDriver();
-            this.ParrentPage = page.GetDisplayName();
+            this.Driver = page.Driver;
+            this.ParrentPage = page.DisplayName;
             this.DisplayName = displayName;
         }
 
+        /// <summary>
+        /// Creates a Dynamic Element
+        /// </summary>
+        /// <param name="driver">web driver instance to attach to the element</param>
+        /// <param name="page">the name of the page this element belongs too</param>
+        /// <param name="displayName"> the display name of the element (human readable)</param>
         private DynamicElement(IWebDriver driver, string page, string displayName)
         {
             this.ParentElement = null;
@@ -107,6 +140,11 @@ namespace WebDriverExtended
             this.DisplayName = displayName;
         }
 
+        /// <summary>
+        /// Constructor is used to convert a WebElement to a DynamicElement
+        /// </summary>
+        /// <param name="driver">web driver instance to attach to the element</param>
+        /// <param name="rootElement">the webelement to convert</param>
         private DynamicElement(IWebDriver driver, IWebElement rootElement)
         {
             this.ParentElement = null;
@@ -120,19 +158,28 @@ namespace WebDriverExtended
             this.Driver = driver;
         }
 
-
         public DynamicElement(IWebDriver driver, IReport reporting, string displayName = "Unknown") : this(driver, displayName)
         {
             Reporting = reporting;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="page"></param>
+        /// <param name="displayName"></param>
+        /// <param name="rootElement"></param>
         private DynamicElement(IPageObject page, string displayName, IWebElement rootElement)
         {
             this.RootElement = rootElement;
-            this.Driver = page.getDriver();
+            this.Driver = page.Driver;
             this.DisplayName = "Unknown";
         }
 
+        /// <summary>
+        /// Find the element defined and place the result in the element cache
+        /// </summary>
+        /// <returns>current DynElement instance</returns>
         private DynamicElement Find()
         {
             try
@@ -191,6 +238,9 @@ namespace WebDriverExtended
             return this;
         }
 
+        /// <summary>
+        /// Clears the current DynElement. Used mostly for text fields.
+        /// </summary>
         public void Clear()
         {
             this.Find();
@@ -204,6 +254,9 @@ namespace WebDriverExtended
             }
         }
 
+        /// <summary>
+        /// Click on the element
+        /// </summary>
         public void Click()
         {
             this.Find();
@@ -216,6 +269,11 @@ namespace WebDriverExtended
             } 
         }
 
+        /// <summary>
+        /// Find a webelement using passed by
+        /// </summary>
+        /// <param name="by">criteria to search</param>
+        /// <returns>webelement</returns>
         public IWebElement FindElement(By by)
         {
             Find();
@@ -223,11 +281,21 @@ namespace WebDriverExtended
             return RootElement;
         }
 
+        /// <summary>
+        /// Find a dynamic element using the By passed
+        /// </summary>
+        /// <param name="by">search criteria to find the DynElement</param>
+        /// <returns>single element match</returns>
         public DynamicElement FindDynamicElement(By by)
         {
             return new DynamicElement(Driver, RootElement.FindElement(by));
         }
 
+        /// <summary>
+        /// Find all dynamicelements that fits the provided search criteria.
+        /// </summary>
+        /// <param name="by">search criteria</param>
+        /// <returns>a list of elements that match</returns>
         public List<DynamicElement> FindDynamicElements(By by)
         {
             this.Find();
@@ -243,6 +311,10 @@ namespace WebDriverExtended
             return elementsToReturn;
         }
 
+        /// <summary>
+        /// Return a list of dynamic elements using the currently attached search criteria.
+        /// </summary>
+        /// <returns>a list of elements that match</returns>
         public List<DynamicElement> FindDynamicElements()
         {
             bool foundElements = false;
@@ -272,24 +344,43 @@ namespace WebDriverExtended
             return elementsToReturn;
         }
 
+        /// <summary>
+        /// Find all elements that fits the provided search criteria
+        /// </summary>
+        /// <param name="by">search criteria</param>
+        /// <returns>a list of elements that match</returns>
         public ReadOnlyCollection<IWebElement> FindElements(By by)
         {
             Find();
             return RootElement.FindElements(by);
         }
 
+        /// <summary>
+        /// Retrieve the named attribute from the current element
+        /// </summary>
+        /// <param name="attributeName"></param>
+        /// <returns></returns>
         public string GetAttribute(string attributeName)
         {
             this.Find();
             return RootElement.GetAttribute(attributeName);
         }
 
+        /// <summary>
+        /// Retrive the css retive the css value fot the attribute given
+        /// </summary>
+        /// <param name="propertyName"></param>
+        /// <returns></returns>
         public string GetCssValue(string propertyName)
         {
             this.Find();
             return RootElement.GetCssValue(propertyName);
         }
 
+        /// <summary>
+        /// Send simulated keyboard keys to the current element instance
+        /// </summary>
+        /// <param name="text">text to input into element</param>
         public void SendKeys(string text)
         {
             Find();
@@ -303,6 +394,9 @@ namespace WebDriverExtended
             }
         }
 
+        /// <summary>
+        /// Carry out a submit action on the current element
+        /// </summary>
         public void Submit()
         {
             Find();
@@ -317,6 +411,11 @@ namespace WebDriverExtended
             }
         }
 
+        /// <summary>
+        /// Adds a search item to the DynElement
+        /// </summary>
+        /// <param name="byToAdd">By to add to the list of searches</param>
+        /// <returns>Dynamic Element</returns>
         public DynamicElement AddSearch(By byToAdd)
         {
             SearchOptions.Add(byToAdd);
@@ -327,13 +426,21 @@ namespace WebDriverExtended
         {
             SearchOptions.Clear();
         }
-
+        /// <summary>
+        /// Changes the display name to the give string
+        /// </summary>
+        /// <param name="name">Name to change display to</param>
+        /// <returns>string containing the new</returns>
         public DynamicElement SetDisplayName(string name)
         {
             DisplayName = name;
             return this;
         }
 
+        /// <summary>
+        /// Returns current
+        /// </summary>
+        /// <returns>Current Webelement</returns>
         public IWebElement ReturnRoot()
         {
             return RootElement;
@@ -344,6 +451,10 @@ namespace WebDriverExtended
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Is the element on the current page object
+        /// </summary>
+        /// <returns>true = yes, false = no</returns>
         public Boolean Exists()
         {
             DynamicElement Result;
@@ -412,6 +523,10 @@ namespace WebDriverExtended
             }
         }
 
+        /// <summary>
+        /// Waits for the element defined by the first By added to the search collection to exist on the page
+        /// </summary>
+        /// <param name="timeOutinSec">How long to wait fort the elements existence in secs</param>
         public void Wait(int timeOutinSec)
         {
             if (SearchOptions.Count() > 0)
@@ -441,6 +556,11 @@ namespace WebDriverExtended
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="by">Selenium By</param>
+        /// <returns>Returns a webelement if the condition exists</returns>
         private IWebElement CheckCondition(By by)
         {
             try
