@@ -7,15 +7,20 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using WebDriverExtended.Reporting;
+using WebDriverExtended.Page;
+using System.Diagnostics;
 
 namespace WebDriverExtended
 {
     public class DynamicElement : IWebElement
     {
-        private IWebDriver Driver;
-	    protected IWebElement RootElement;
-        private List<By> SearchOptions = new List<By>();
         public string DisplayName { get; set; }
+	    protected IWebElement RootElement;
+        protected string ParrentPage { get; set; }
+        private List<By> SearchOptions = new List<By>();
+        private DynamicElement ParentElement;
+        private Boolean NoCache = false;
+        private IWebDriver Driver;
 
         IReport Reporting;
 
@@ -77,9 +82,37 @@ namespace WebDriverExtended
         {
             get
             {
-                Find();
+                this.Find();
                 return RootElement.Text;
             }
+        }
+        private DynamicElement(IPageObject page, string displayName) : this(page, displayName, null)
+        {
+
+        }
+
+        private DynamicElement(IPageObject page, string displayName, DynamicElement parentElement)
+        {
+            ParentElement = parentElement;
+            this.Driver = page.getDriver();
+            this.ParrentPage = page.GetDisplayName();
+            this.DisplayName = displayName;
+        }
+
+        private DynamicElement(IWebDriver driver, string page, string displayName)
+        {
+            this.ParentElement = null;
+            this.Driver = driver;
+            this.ParrentPage = page;
+            this.DisplayName = displayName;
+        }
+
+        private DynamicElement(IWebDriver driver, IWebElement rootElement)
+        {
+            this.ParentElement = null;
+            this.RootElement = rootElement;
+            this.Driver = driver;
+            DisplayName = "Unknown";
         }
 
         public DynamicElement(IWebDriver driver, string displayName = "Unknown")
@@ -87,76 +120,105 @@ namespace WebDriverExtended
             this.Driver = driver;
         }
 
+
         public DynamicElement(IWebDriver driver, IReport reporting, string displayName = "Unknown") : this(driver, displayName)
         {
             Reporting = reporting;
         }
 
-        private DynamicElement(IWebDriver driver, IWebElement rootElement)
+        private DynamicElement(IPageObject page, string displayName, IWebElement rootElement)
         {
-            RootElement = rootElement;
-            Driver = driver;
-            DisplayName = "Unknown";
+            this.RootElement = rootElement;
+            this.Driver = page.getDriver();
+            this.DisplayName = "Unknown";
         }
 
         private DynamicElement Find()
         {
-            if (RootElement == null || ElementStale() == true)
+            try
             {
-
-                foreach (By currentBy in SearchOptions)
+                if (RootElement == null || NoCache)
                 {
-                    try
-                    {
-                        RootElement = Driver.FindElement(currentBy);
-                        return this;
-                    }
-                    catch (Exception e)
-                    {
-                        // contiune on
-                    }
-                }
 
-                if (Reporting != null) Reporting.Validate("Could not find the element " + DisplayName, false);
+                    foreach (By currentBy in SearchOptions)
+                    {
+                        try
+                        {
+                            if (ParentElement == null)
+                            {
+                                RootElement = Driver.FindElement(currentBy);
+                            }
+                            else
+                            {
+                                RootElement = ParentElement.FindElement(currentBy);
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            //todo: add logging
+                            // contiune on
+                        }
+                    }
+
+                    throw new WebDriverException("Error finding " + DisplayName + " on the page / screen" + ParrentPage);
+                }
                 return this;
+            } catch (Exception e)
+            {
+                throw new WebDriverException("Error finding " + DisplayName + " on the page / screen" + ParrentPage + "\n" + e.ToString());
             }
 
+            
+        }
+
+        /// <summary>
+        /// Turn element search cache off
+        /// </summary>
+        /// <returns></returns>
+        public DynamicElement CacheOff()
+        {
+            NoCache = true;
             return this;
         }
 
-        private bool ElementStale()
+        /// <summary>
+        /// Turn element search cache on
+        /// </summary>
+        /// <returns></returns>
+        public DynamicElement CacheOn()
         {
-            try
-            {
-                bool staleCheck = RootElement.Enabled;
-                return false;
-
-            }
-            catch (StaleElementReferenceException)
-            {
-
-                return true;
-            }
+            NoCache = false;
+            return this;
         }
 
         public void Clear()
         {
             this.Find();
-            if (Reporting != null) Reporting.WriteStep(String.Format(StringLocalization.ClearReportText, DisplayName));
-            this.RootElement.Clear();
+            try
+            {
+                this.RootElement.Clear();
+            }
+            catch (Exception e)
+            {
+                throw new WebDriverException("Error clearing " + DisplayName + " on the page / screen" + ParrentPage + "\n" + e.ToString()); 
+            }
         }
 
         public void Click()
         {
             this.Find();
-            if (Reporting != null) Reporting.WriteStep(string.Format(StringLocalization.ClickReportText, DisplayName));
-            this.RootElement.Click();
-            
+            try
+            {
+                this.RootElement.Click();
+            } catch (Exception e)
+            {
+                throw new WebDriverException("Error clicking " + DisplayName + " on the page / screen" + ParrentPage + "\n" + e.ToString());
+            } 
         }
 
         public IWebElement FindElement(By by)
         {
-
+            Find();
             RootElement = RootElement.FindElement(by);
             return RootElement;
         }
@@ -168,6 +230,7 @@ namespace WebDriverExtended
 
         public List<DynamicElement> FindDynamicElements(By by)
         {
+            this.Find();
             ReadOnlyCollection<IWebElement> baseElements = RootElement.FindElements(by);
 
             List<DynamicElement> elementsToReturn = new List<DynamicElement>();
@@ -204,43 +267,54 @@ namespace WebDriverExtended
 
                 elementsToReturn.Reverse();
 
-                return elementsToReturn;
             }
 
-            return null;
+            return elementsToReturn;
         }
 
         public ReadOnlyCollection<IWebElement> FindElements(By by)
         {
+            Find();
             return RootElement.FindElements(by);
         }
 
         public string GetAttribute(string attributeName)
         {
             this.Find();
-            if (Reporting != null) Reporting.WriteStep(string.Format(StringLocalization.GetAttReportText, attributeName, DisplayName));
             return RootElement.GetAttribute(attributeName);
         }
 
         public string GetCssValue(string propertyName)
         {
-            Find();
-            if (Reporting != null) Reporting.WriteStep(string.Format(StringLocalization.GetCSSReportText, propertyName, DisplayName));
+            this.Find();
             return RootElement.GetCssValue(propertyName);
         }
 
         public void SendKeys(string text)
         {
             Find();
-            if (Reporting != null) Reporting.WriteStep(string.Format(StringLocalization.SendKeyReportText, text, DisplayName));
-            RootElement.SendKeys(text);
+            try
+            {
+                RootElement.SendKeys(text);
+            }
+            catch (Exception e)
+            {
+                throw new WebDriverException("Error with send keys on " + DisplayName + " on the page / screen" + ParrentPage + "\n" + e.ToString() + " with input of " + text); //report.writeStep("Click element " + displayName);
+            }
         }
 
         public void Submit()
         {
             Find();
-            if (Reporting != null) Reporting.WriteStep(string.Format(StringLocalization.SubmitReportText, DisplayName));
-            RootElement.Submit();
+            try
+            {
+                this.RootElement.Submit();
+            }
+            catch (Exception e)
+            {
+                throw new WebDriverException(
+                    "Error with submitting " + DisplayName + " on the page / screen" + ParrentPage + "\n" + e.ToString()); //report.writeStep("Click element " + displayName);
+            }
         }
 
         public DynamicElement AddSearch(By byToAdd)
@@ -264,5 +338,121 @@ namespace WebDriverExtended
         {
             return RootElement;
         }
+
+        public string GetProperty(string propertyName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Boolean Exists()
+        {
+            DynamicElement Result;
+            try
+            {
+                Result = Find();
+            }
+            catch (Exception e)
+            {
+                //Todo: Add logging
+                Result = null;
+            }
+
+            if (Result == null || Result.RootElement == null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Waits for the element defined by the first By added to the search collection to not be enabled on the page
+        /// </summary>
+        /// <param name="timeOutinSec">How long to wait fort the elements existence in secs</param>
+        public void WaitForInvsibility(int timeOutinSec)
+        {
+            if (SearchOptions.Count() > 0)
+            {
+                Stopwatch timer = new Stopwatch();
+                timer.Start();
+                while (timer.Elapsed < TimeSpan.FromSeconds(timeOutinSec))
+                {
+                    foreach (By currentBy in SearchOptions)
+                    {
+                            IWebElement foundElement = CheckCondition(currentBy);
+                        try
+                        {
+                            Boolean visibilityState = foundElement.Enabled;
+                            if (visibilityState == false) return;
+                        }
+                        catch (StaleElementReferenceException elementNoLongerVisible)
+                        {
+                            //ToDo: Add logging
+                            // Returns out of the loop because stale element reference implies that element
+                            // is no longer visible.
+                            return;
+                        }
+                        catch (NoSuchElementException elementDoesntExist)
+                        {
+                            // Returns out of the loop because the element is not present in DOM. The
+                            // try block checks if the element is present but is invisible.
+                            return;
+                        }
+                        catch (NullReferenceException elementClearedOut)
+                        {
+                            //DynElement clears out the element when it doest exist on the page anymore
+                            return;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                throw new WebDriverException("No Search Bys to wait for");
+            }
+        }
+
+        public void Wait(int timeOutinSec)
+        {
+            if (SearchOptions.Count() > 0)
+            {
+                Stopwatch timer = new Stopwatch();
+                timer.Start();
+                while (timer.Elapsed < TimeSpan.FromSeconds(timeOutinSec))
+                {
+                    foreach (By currentBy in SearchOptions)
+                    {
+                        IWebElement foundElement = CheckCondition(currentBy);
+                        if (foundElement != null)
+                        {
+                            if (foundElement.Displayed && foundElement.Enabled)
+                            {
+                                return;
+                            }
+                        }
+                    }
+                }
+                throw new WebDriverException("Error waiting for element " + DisplayName);
+
+            }
+            else
+            {
+                throw new WebDriverException("No Search Bys to wait for");
+            }
+        }
+
+        private IWebElement CheckCondition(By by)
+        {
+            try
+            {
+                return Driver.FindElement(by);
+            }
+            catch (WebDriverException wdException)
+            {
+                //ToDo Add logging
+                return null;
+            }
+        }
+
     }
 }

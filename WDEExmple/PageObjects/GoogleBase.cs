@@ -75,5 +75,15 @@ namespace WDEExmple.PageObjects
                 if (currentState.Key == key) currentState.Value = value;
             }
         }
+
+        public string GetDisplayName()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IWebDriver getDriver()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
