@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenQA.Selenium.Support.UI;
 
 namespace WebDriverExtended.Page
 {
@@ -12,6 +13,9 @@ namespace WebDriverExtended.Page
     /// </summary>
     public interface IPageObject
     {
+        IWebDriver Driver { get; }
+        string DisplayName { get; }
+
         /// <summary>
         /// Navigate to an address
         /// </summary>
@@ -24,16 +28,7 @@ namespace WebDriverExtended.Page
         /// </summary>
         /// <param name="url"></param>
         void Navigate(string url);
+        
 
-        /// <summary>
-        /// Navigate to an address
-        /// </summary>
-        /// <param name="driver"></param>
-        void Navigate(IWebDriver driver);
-
-        /// <summary>
-        /// Do any clenup the page object needs
-        /// </summary>
-        void TearDown();
     }
 }
