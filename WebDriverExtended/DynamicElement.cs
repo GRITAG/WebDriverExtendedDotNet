@@ -118,7 +118,7 @@ namespace WebDriverExtended
         /// <param name="page"></param>
         /// <param name="displayName"></param>
         /// <param name="parentElement"></param>
-        private DynamicElement(IPageObject page, string displayName, DynamicElement parentElement)
+        public DynamicElement(IPageObject page, string displayName, DynamicElement parentElement)
         {
             ParentElement = parentElement;
             this.Driver = page.Driver;
@@ -132,7 +132,7 @@ namespace WebDriverExtended
         /// <param name="driver">web driver instance to attach to the element</param>
         /// <param name="page">the name of the page this element belongs too</param>
         /// <param name="displayName"> the display name of the element (human readable)</param>
-        private DynamicElement(IWebDriver driver, string page, string displayName)
+        public DynamicElement(IWebDriver driver, string page, string displayName)
         {
             this.ParentElement = null;
             this.Driver = driver;
@@ -145,7 +145,7 @@ namespace WebDriverExtended
         /// </summary>
         /// <param name="driver">web driver instance to attach to the element</param>
         /// <param name="rootElement">the webelement to convert</param>
-        private DynamicElement(IWebDriver driver, IWebElement rootElement)
+        public DynamicElement(IWebDriver driver, IWebElement rootElement)
         {
             this.ParentElement = null;
             this.RootElement = rootElement;
@@ -169,7 +169,7 @@ namespace WebDriverExtended
         /// <param name="page"></param>
         /// <param name="displayName"></param>
         /// <param name="rootElement"></param>
-        private DynamicElement(IPageObject page, string displayName, IWebElement rootElement)
+        public DynamicElement(IPageObject page, string displayName, IWebElement rootElement)
         {
             this.RootElement = rootElement;
             this.Driver = page.Driver;
