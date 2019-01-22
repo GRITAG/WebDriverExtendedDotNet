@@ -15,7 +15,7 @@ namespace WebDriverExtended
     public class DynamicElement : IWebElement
     {
         public string DisplayName { get; set; }
-	    protected IWebElement RootElement;
+        protected IWebElement RootElement;
         protected string ParrentPage { get; set; }
         private List<By> SearchOptions = new List<By>();
         private DynamicElement ParentElement;
@@ -156,10 +156,13 @@ namespace WebDriverExtended
         public DynamicElement(IWebDriver driver, string displayName = "Unknown")
         {
             this.Driver = driver;
+            this.DisplayName = displayName;
         }
 
         public DynamicElement(IWebDriver driver, IReport reporting, string displayName = "Unknown") : this(driver, displayName)
         {
+            this.Driver = driver;
+            this.DisplayName = displayName;
             Reporting = reporting;
         }
 
@@ -174,6 +177,30 @@ namespace WebDriverExtended
             this.RootElement = rootElement;
             this.Driver = page.Driver;
             this.DisplayName = "Unknown";
+        }
+
+        public DynamicElement(IWebDriver driver) : this(driver, "unknown")
+        {
+
+        }
+
+        public DynamicElement(IWebDriver driver, string displayName, IWebElement rootElement) : this(driver, rootElement)
+        {
+
+            this.DisplayName = displayName;
+
+        }
+
+        public DynamicElement(IWebDriver driver, string displayName, DynamicElement parentElement) : this(driver, parentElement)
+        {
+
+            this.DisplayName = displayName;
+
+        }
+
+        public DynamicElement(IWebDriver driver, DynamicElement parentElement) : this(driver)
+        {
+            ParentElement = parentElement;
         }
 
         /// <summary>
