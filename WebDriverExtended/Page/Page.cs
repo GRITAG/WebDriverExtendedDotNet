@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using System;
 
 namespace WebDriverExtended.Page
 {
@@ -15,7 +11,7 @@ namespace WebDriverExtended.Page
         public string BaseUrl { get; set; }
         public string Path { get; set; }
         private WebDriverWait PageWait;
-        public Boolean Mobile { get; protected set; }
+        public bool Mobile { get; protected set; }
 
         /// <summary>
         /// Creates a pageobject
@@ -51,6 +47,11 @@ namespace WebDriverExtended.Page
         public virtual void Navigate(IWebDriver driver, string url)
         {
             driver.Navigate().GoToUrl(url);
+        }
+
+        public virtual void Navigate()
+        {
+            Driver.Navigate().GoToUrl(getPageUrl());
         }
 
     }
