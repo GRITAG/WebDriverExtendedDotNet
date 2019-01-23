@@ -16,9 +16,9 @@ namespace WebDriverExtended
     {
         public string DisplayName { get; set; }
         protected IWebElement RootElement;
-        protected string ParrentPage { get; set; }
+        public string ParentPage { get; protected set; }
         private List<By> SearchOptions = new List<By>();
-        private DynamicElement ParentElement;
+        public DynamicElement ParentElement { get; protected set; }
         private Boolean NoCache = false;
         private IWebDriver Driver;
 
@@ -107,7 +107,7 @@ namespace WebDriverExtended
                 return RootElement.Text;
             }
         }
-        private DynamicElement(IPageObject page, string displayName) : this(page, displayName, null)
+        public DynamicElement(IPageObject page, string displayName) : this(page, displayName, null)
         {
 
         }
@@ -122,7 +122,7 @@ namespace WebDriverExtended
         {
             ParentElement = parentElement;
             this.Driver = page.Driver;
-            this.ParrentPage = page.DisplayName;
+            this.ParentPage = page.DisplayName;
             this.DisplayName = displayName;
         }
 
@@ -136,7 +136,7 @@ namespace WebDriverExtended
         {
             this.ParentElement = null;
             this.Driver = driver;
-            this.ParrentPage = page;
+            this.ParentPage = page;
             this.DisplayName = displayName;
         }
 
@@ -234,12 +234,12 @@ namespace WebDriverExtended
                         }
                     }
 
-                    throw new WebDriverException("Error finding " + DisplayName + " on the page / screen" + ParrentPage);
+                    throw new WebDriverException("Error finding " + DisplayName + " on the page / screen" + ParentPage);
                 }
                 return this;
             } catch (Exception e)
             {
-                throw new WebDriverException("Error finding " + DisplayName + " on the page / screen" + ParrentPage + "\n" + e.ToString());
+                throw new WebDriverException("Error finding " + DisplayName + " on the page / screen" + ParentPage + "\n" + e.ToString());
             }
 
             
@@ -277,7 +277,7 @@ namespace WebDriverExtended
             }
             catch (Exception e)
             {
-                throw new WebDriverException("Error clearing " + DisplayName + " on the page / screen" + ParrentPage + "\n" + e.ToString()); 
+                throw new WebDriverException("Error clearing " + DisplayName + " on the page / screen" + ParentPage + "\n" + e.ToString()); 
             }
         }
 
@@ -292,7 +292,7 @@ namespace WebDriverExtended
                 this.RootElement.Click();
             } catch (Exception e)
             {
-                throw new WebDriverException("Error clicking " + DisplayName + " on the page / screen" + ParrentPage + "\n" + e.ToString());
+                throw new WebDriverException("Error clicking " + DisplayName + " on the page / screen" + ParentPage + "\n" + e.ToString());
             } 
         }
 
@@ -417,7 +417,7 @@ namespace WebDriverExtended
             }
             catch (Exception e)
             {
-                throw new WebDriverException("Error with send keys on " + DisplayName + " on the page / screen" + ParrentPage + "\n" + e.ToString() + " with input of " + text); //report.writeStep("Click element " + displayName);
+                throw new WebDriverException("Error with send keys on " + DisplayName + " on the page / screen" + ParentPage + "\n" + e.ToString() + " with input of " + text); //report.writeStep("Click element " + displayName);
             }
         }
 
@@ -434,7 +434,7 @@ namespace WebDriverExtended
             catch (Exception e)
             {
                 throw new WebDriverException(
-                    "Error with submitting " + DisplayName + " on the page / screen" + ParrentPage + "\n" + e.ToString()); //report.writeStep("Click element " + displayName);
+                    "Error with submitting " + DisplayName + " on the page / screen" + ParentPage + "\n" + e.ToString()); //report.writeStep("Click element " + displayName);
             }
         }
 

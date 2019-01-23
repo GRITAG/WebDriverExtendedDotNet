@@ -8,7 +8,7 @@ using OpenQA.Selenium.Support.UI;
 
 namespace WebDriverExtended.Page
 {
-    class Page : IPageObject
+    public class Page : IPageObject
     {
         public IWebDriver Driver { get; protected set; }
         public string DisplayName { get; protected set; }
