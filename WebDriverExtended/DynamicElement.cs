@@ -1,14 +1,12 @@
 ﻿using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Collections.ObjectModel;
-using System.Drawing;
-using WebDriverExtended.Reporting;
-using WebDriverExtended.Page;
 using System.Diagnostics;
+using System.Drawing;
+using System.Linq;
+using WebDriverExtended.Page;
+using WebDriverExtended.Reporting;
 
 namespace WebDriverExtended
 {
