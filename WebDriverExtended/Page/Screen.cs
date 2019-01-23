@@ -22,18 +22,6 @@ namespace WebDriverExtended.Page
             PageWait = new WebDriverWait(Driver, TimeSpan.FromSeconds(10));
             DisplayName = displayName;
         }
-
-        public void Navigate(IWebDriver driver, string url)
-        {
-            driver.Navigate().GoToUrl(url);
-        }
-
-        public void Navigate(string url)
-        {
-            Driver.Navigate().GoToUrl(url);
-        }
-
-
     }
 
 }

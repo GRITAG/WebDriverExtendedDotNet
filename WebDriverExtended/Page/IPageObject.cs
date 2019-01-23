@@ -15,20 +15,5 @@ namespace WebDriverExtended.Page
     {
         IWebDriver Driver { get; }
         string DisplayName { get; }
-
-        /// <summary>
-        /// Navigate to an address
-        /// </summary>
-        /// <param name="driver"></param>
-        /// <param name="url"></param>
-        void Navigate(IWebDriver driver, string url);
-
-        /// <summary>
-        /// Navigate to an address
-        /// </summary>
-        /// <param name="url"></param>
-        void Navigate(string url);
-        
-
     }
 }

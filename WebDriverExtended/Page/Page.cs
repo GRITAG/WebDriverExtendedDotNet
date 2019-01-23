@@ -43,12 +43,12 @@ namespace WebDriverExtended.Page
         /// Navigate to the the pages absolute url. Both the base URL and the relative url must be stored within the page object
         /// </summary>
         /// <param name="url"></param>
-        public void Navigate(string url)
+        public virtual void Navigate(string url)
         {
             Driver.Navigate().GoToUrl(url);
         }
 
-        public void Navigate(IWebDriver driver, string url)
+        public virtual void Navigate(IWebDriver driver, string url)
         {
             driver.Navigate().GoToUrl(url);
         }
