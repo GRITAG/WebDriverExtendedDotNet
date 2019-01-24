@@ -1,14 +1,12 @@
 ﻿using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Collections.ObjectModel;
-using System.Drawing;
-using WebDriverExtended.Reporting;
-using WebDriverExtended.Page;
 using System.Diagnostics;
+using System.Drawing;
+using System.Linq;
+using WebDriverExtended.Page;
+using WebDriverExtended.Reporting;
 
 namespace WebDriverExtended
 {
@@ -272,7 +270,7 @@ namespace WebDriverExtended
         /// <summary>
         /// Clears the current DynElement. Used mostly for text fields.
         /// </summary>
-        public void Clear()
+        public virtual void Clear()
         {
             this.Find();
             try
@@ -288,7 +286,7 @@ namespace WebDriverExtended
         /// <summary>
         /// Click on the element
         /// </summary>
-        public void Click()
+        public virtual void Click()
         {
             this.Find();
             try
@@ -412,7 +410,7 @@ namespace WebDriverExtended
         /// Send simulated keyboard keys to the current element instance
         /// </summary>
         /// <param name="text">text to input into element</param>
-        public void SendKeys(string text)
+        public virtual void SendKeys(string text)
         {
             Find();
             try
@@ -428,7 +426,7 @@ namespace WebDriverExtended
         /// <summary>
         /// Carry out a submit action on the current element
         /// </summary>
-        public void Submit()
+        public virtual void Submit()
         {
             Find();
             try

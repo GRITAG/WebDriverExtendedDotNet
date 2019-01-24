@@ -10,7 +10,7 @@
     <projectUrl>https://github.com/F1tZ81/WebDriverExtended</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>2.0 Release</releaseNotes>
+    <releaseNotes>added a missing navigation</releaseNotes>
     <copyright>Copyright 2019</copyright>
     <tags>Testing Automation Webdriver Selenium</tags>
   </metadata>

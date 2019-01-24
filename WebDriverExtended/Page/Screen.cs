@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using System;
 
 namespace WebDriverExtended.Page
 {
@@ -22,18 +18,6 @@ namespace WebDriverExtended.Page
             PageWait = new WebDriverWait(Driver, TimeSpan.FromSeconds(10));
             DisplayName = displayName;
         }
-
-        public void Navigate(IWebDriver driver, string url)
-        {
-            driver.Navigate().GoToUrl(url);
-        }
-
-        public void Navigate(string url)
-        {
-            Driver.Navigate().GoToUrl(url);
-        }
-
-
     }
 
 }
