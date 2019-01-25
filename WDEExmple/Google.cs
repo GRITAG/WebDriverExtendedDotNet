@@ -1,12 +1,6 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Firefox;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+using OpenQA.Selenium.Chrome;
 using WDEExmple.PageObjects;
 
 namespace WDEExmple
@@ -14,23 +8,31 @@ namespace WDEExmple
     [TestFixture]
     public class Google
     {
+        private IWebDriver Browser { get; set; }
+
+        [SetUp]
+        public void SettUp()
+        {
+            Browser = new ChromeDriver();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            Browser.Quit();
+        }
+
         [Test]
         public void SearchGoogle()
         {
-            IWebDriver Browser = new FirefoxDriver();
-
             GoogleLanding landing = new GoogleLanding(Browser);
             landing.Navigate("http://www.google.com");
             landing.SendKeys_SearchBar("Sting Ray");
-            landing.Click_SearchButton();
+            landing.Enter_SearchBar();
 
-            Thread.Sleep(5000);
             landing.Click_Result(2);
-            Thread.Sleep(5000);
 
-            Assert.AreEqual(Browser.Url, "http://www.autodesk.com/products/stingray/overview");
-
-            Browser.Close();
+            Assert.IsTrue(Browser.PageSource.Contains("Stingray"));
         }
     }
 }

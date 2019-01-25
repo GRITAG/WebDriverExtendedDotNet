@@ -10,7 +10,7 @@
     <projectUrl>https://github.com/F1tZ81/WebDriverExtended</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>adding more ability to override page and screen</releaseNotes>
+    <releaseNotes>added a missing navigation</releaseNotes>
     <copyright>Copyright 2019</copyright>
     <tags>Testing Automation Webdriver Selenium</tags>
   </metadata>

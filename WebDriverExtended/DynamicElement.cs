@@ -230,6 +230,10 @@ namespace WebDriverExtended
                             //todo: add logging
                             // contiune on
                         }
+                        if (RootElement !=  null)
+                        {
+                            return this;
+                        }
                     }
 
                     throw new WebDriverException("Error finding " + DisplayName + " on the page / screen" + ParentPage);
