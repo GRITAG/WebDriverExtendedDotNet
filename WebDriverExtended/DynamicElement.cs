@@ -232,7 +232,7 @@ namespace WebDriverExtended
                         }
                         if (RootElement !=  null)
                         {
-                            return (DynamicElement)RootElement;
+                            return this;
                         }
                     }
 

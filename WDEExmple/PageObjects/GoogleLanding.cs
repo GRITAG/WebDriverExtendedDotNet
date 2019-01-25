@@ -26,10 +26,11 @@ namespace WDEExmple.PageObjects
 
             AddState("ResultsAvaible", "false");
 
-            SearchBar = new DynamicElement(Driver, "SearchBar").AddSearch(By.Id("lst-ib"))
+            SearchBar = new DynamicElement(Driver, "SearchBar")
+                .AddSearch(By.CssSelector("input[name='q']"))
                 .AddSearch(By.CssSelector("input[id='lst-ib']"));
             SearchButton = new DynamicElement(Driver, "SearchButton")
-                .AddSearch(By.CssSelector("input[value='Google Search']"));
+                .AddSearch(By.CssSelector("input[name='btnK']"));
             Result = new DynamicElement(Driver, "Search Result")
                 .AddSearch(By.CssSelector("div[class='g'] div[class='rc'] a"));
         }
@@ -56,13 +57,17 @@ namespace WDEExmple.PageObjects
             return this;
         }
 
+        public GoogleLanding Enter_SearchBar()
+        {
+            SearchBar.SendKeys(Keys.Enter);
+            return this;
+        }
+
         public void Click_Result(int index)
         {
             if(GetState("ResultsAvaible").Value == "true")
             {
-                //Actions movetoControl = new Actions(Driver);
-                //movetoControl.MoveToElement(Result.FindDynamicElements()[index].ReturnRoot());
-                //movetoControl.Perform();
+                Result.Wait(30);
 
                 List<DynamicElement> sortedElements = Result.FindDynamicElements();
                 //sortedElements.Reverse();
